@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище UchebnayaPractika1Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Human">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Family" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Patronymic" Type="nvarchar" MaxLength="50" />
+          <Property Name="Age" Type="nvarchar" MaxLength="2" />
+          <Property Name="Position" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExpAge" Type="nvarchar" MaxLength="2" />
+          <Property Name="FaceIM" Type="varbinary(max)" />
+          <Property Name="Other" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="IDRole" />
+          </Key>
+          <Property Name="IDRole" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SusAndHum">
+          <Key>
+            <PropertyRef Name="IDHuman" />
+            <PropertyRef Name="IDSuspendet" />
+          </Key>
+          <Property Name="IDHuman" Type="int" Nullable="false" />
+          <Property Name="IDSuspendet" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Suspended">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Family" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Patronymic" Type="nvarchar" MaxLength="50" />
+          <Property Name="Age" Type="nvarchar" MaxLength="2" />
+          <Property Name="LastPos" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExpAge" Type="nvarchar" MaxLength="2" />
+          <Property Name="FaceIM" Type="varbinary(max)" />
+          <Property Name="Other" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Аккаунт">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhoneNum" Type="nvarchar" MaxLength="12" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="IDRole" Type="int" />
+          <Property Name="Human ID" Type="int" />
+        </EntityType>
+        <Association Name="FK_SusAndHum_Human">
+          <End Role="Human" Type="Self.Human" Multiplicity="1" />
+          <End Role="SusAndHum" Type="Self.SusAndHum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Human">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SusAndHum">
+              <PropertyRef Name="IDHuman" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SusAndHum_Suspended">
+          <End Role="Suspended" Type="Self.Suspended" Multiplicity="1" />
+          <End Role="SusAndHum" Type="Self.SusAndHum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suspended">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SusAndHum">
+              <PropertyRef Name="IDSuspendet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Аккаунт_Human">
+          <End Role="Human" Type="Self.Human" Multiplicity="0..1" />
+          <End Role="Аккаунт" Type="Self.Аккаунт" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Human">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Аккаунт">
+              <PropertyRef Name="Human ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Аккаунт_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="Аккаунт" Type="Self.Аккаунт" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="IDRole" />
+            </Principal>
+            <Dependent Role="Аккаунт">
+              <PropertyRef Name="IDRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище UchebnayaPractika1ModelContainer">
+          <EntitySet Name="Human" EntityType="Self.Human" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SusAndHum" EntityType="Self.SusAndHum" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Suspended" EntityType="Self.Suspended" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Аккаунт" EntityType="Self.Аккаунт" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_SusAndHum_Human" Association="Self.FK_SusAndHum_Human">
+            <End Role="Human" EntitySet="Human" />
+            <End Role="SusAndHum" EntitySet="SusAndHum" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SusAndHum_Suspended" Association="Self.FK_SusAndHum_Suspended">
+            <End Role="Suspended" EntitySet="Suspended" />
+            <End Role="SusAndHum" EntitySet="SusAndHum" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Аккаунт_Human" Association="Self.FK_Аккаунт_Human">
+            <End Role="Human" EntitySet="Human" />
+            <End Role="Аккаунт" EntitySet="Аккаунт" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Аккаунт_Role" Association="Self.FK_Аккаунт_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Аккаунт" EntitySet="Аккаунт" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="UchebnayaPractika1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Human">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Family" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Age" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="Position" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ExpAge" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="FaceIM" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Other" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Аккаунт" Relationship="Self.FK_Аккаунт_Human" FromRole="Human" ToRole="Аккаунт" />
+          <NavigationProperty Name="Suspended" Relationship="UchebnayaPractika1Model.SusAndHum" FromRole="Human" ToRole="Suspended" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="IDRole" />
+          </Key>
+          <Property Name="IDRole" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Аккаунт" Relationship="Self.FK_Аккаунт_Role" FromRole="Role" ToRole="Аккаунт" />
+        </EntityType>
+        <EntityType Name="Suspended">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Family" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Age" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="LastPos" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ExpAge" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="FaceIM" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Other" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Human" Relationship="UchebnayaPractika1Model.SusAndHum" FromRole="Suspended" ToRole="Human" />
+        </EntityType>
+        <EntityType Name="Аккаунт">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNum" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IDRole" Type="Int32" />
+          <Property Name="Human_ID" Type="Int32" />
+          <NavigationProperty Name="Human" Relationship="Self.FK_Аккаунт_Human" FromRole="Аккаунт" ToRole="Human" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_Аккаунт_Role" FromRole="Аккаунт" ToRole="Role" />
+        </EntityType>
+        <Association Name="FK_Аккаунт_Human">
+          <End Role="Human" Type="Self.Human" Multiplicity="0..1" />
+          <End Role="Аккаунт" Type="Self.Аккаунт" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Human">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Аккаунт">
+              <PropertyRef Name="Human_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Аккаунт_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="Аккаунт" Type="Self.Аккаунт" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="IDRole" />
+            </Principal>
+            <Dependent Role="Аккаунт">
+              <PropertyRef Name="IDRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="UchebnayaPractika1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Human" EntityType="Self.Human" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="Suspended" EntityType="Self.Suspended" />
+          <EntitySet Name="Аккаунт" EntityType="Self.Аккаунт" />
+          <AssociationSet Name="FK_Аккаунт_Human" Association="Self.FK_Аккаунт_Human">
+            <End Role="Human" EntitySet="Human" />
+            <End Role="Аккаунт" EntitySet="Аккаунт" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Аккаунт_Role" Association="Self.FK_Аккаунт_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Аккаунт" EntitySet="Аккаунт" />
+          </AssociationSet>
+          <AssociationSet Name="SusAndHum" Association="UchebnayaPractika1Model.SusAndHum">
+            <End Role="Human" EntitySet="Human" />
+            <End Role="Suspended" EntitySet="Suspended" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="SusAndHum">
+          <End Type="UchebnayaPractika1Model.Human" Role="Human" Multiplicity="*" />
+          <End Type="UchebnayaPractika1Model.Suspended" Role="Suspended" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище UchebnayaPractika1ModelContainer" CdmEntityContainer="UchebnayaPractika1Entities">
+          <EntitySetMapping Name="Human">
+            <EntityTypeMapping TypeName="UchebnayaPractika1Model.Human">
+              <MappingFragment StoreEntitySet="Human">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Family" ColumnName="Family" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="ExpAge" ColumnName="ExpAge" />
+                <ScalarProperty Name="FaceIM" ColumnName="FaceIM" />
+                <ScalarProperty Name="Other" ColumnName="Other" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="UchebnayaPractika1Model.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="IDRole" ColumnName="IDRole" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suspended">
+            <EntityTypeMapping TypeName="UchebnayaPractika1Model.Suspended">
+              <MappingFragment StoreEntitySet="Suspended">
+                <ScalarProperty Name="Other" ColumnName="Other" />
+                <ScalarProperty Name="FaceIM" ColumnName="FaceIM" />
+                <ScalarProperty Name="ExpAge" ColumnName="ExpAge" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Family" ColumnName="Family" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="LastPos" ColumnName="LastPos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Аккаунт">
+            <EntityTypeMapping TypeName="UchebnayaPractika1Model.Аккаунт">
+              <MappingFragment StoreEntitySet="Аккаунт">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PhoneNum" ColumnName="PhoneNum" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IDRole" ColumnName="IDRole" />
+                <ScalarProperty Name="Human_ID" ColumnName="Human ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="SusAndHum" TypeName="UchebnayaPractika1Model.SusAndHum" StoreEntitySet="SusAndHum">
+            <EndProperty Name="Suspended">
+              <ScalarProperty Name="ID" ColumnName="IDSuspendet" />
+            </EndProperty>
+            <EndProperty Name="Human">
+              <ScalarProperty Name="ID" ColumnName="IDHuman" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

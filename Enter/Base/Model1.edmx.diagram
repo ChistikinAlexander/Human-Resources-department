@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="82ea84899436442c92c6872af539844d" Name="Diagram1">
+        <EntityTypeShape EntityType="UchebnayaPractika1Model.Human" Width="1.5" PointX="0.875" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="UchebnayaPractika1Model.Role" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="UchebnayaPractika1Model.Suspended" Width="1.5" PointX="5.875" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="UchebnayaPractika1Model.Аккаунт" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="UchebnayaPractika1Model.FK_Аккаунт_Human" ManuallyRouted="false" />
+        <AssociationConnector Association="UchebnayaPractika1Model.FK_Аккаунт_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="UchebnayaPractika1Model.SusAndHum" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

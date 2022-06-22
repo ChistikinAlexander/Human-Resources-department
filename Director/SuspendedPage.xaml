@@ -1,0 +1,38 @@
+﻿<Page x:Class="Human_Resources_department.Director.SuspendedPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Human_Resources_department.Director"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="SuspendedPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="377*"></RowDefinition>
+
+        </Grid.RowDefinitions>
+        <DataGrid x:Name="DGrigSus" AutoGenerateColumns="False" IsReadOnly="True" Margin="0,0,0,65">
+            <DataGrid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="White" Offset="0.2"/>
+                    <GradientStop Color="OrangeRed" Offset="1"/>
+                </LinearGradientBrush>
+            </DataGrid.Background>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Имя пользователя" Binding="{Binding Name}" Width="120*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Должность" Binding="{Binding LastPos}" Width="120*"></DataGridTextColumn>
+                <DataGridTemplateColumn Width="auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Личное Дело" Name="BtnSusDel" Click="BtnSusDel_Click"></Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Name="BtnDel" Click="BtnDel_Click" Content="Удалить" HorizontalAlignment="Left" Height="41" Margin="628,399,0,0" VerticalAlignment="Top" Width="154" Background="{x:Null}" FontFamily="Times New Roman" FontSize="16"/>
+
+    </Grid>
+</Page>
